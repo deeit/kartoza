@@ -6,6 +6,8 @@
 * Tested nginx reboot, and routing after reboot.
 * Tested debian reboot, and everything up.
 
+Busy making evertyhting look neat.
+
 
 Todo
  change this annoying editor to vim.
