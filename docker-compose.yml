@@ -49,7 +49,7 @@ services:
             HTTPS_PROXY: "http://172.17.0.1:3128/"
             TZ: "Africa/Johannesburg"
             MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-            MYSQL_ROOT_PASSWORD: "l3tm31n"
+            MYSQL_ROOT_PASSWORD: ""
             MYSQL_USER: 'kartoza'
             MYSQL_PASSWORD: 'kartoza'
             MYSQL_DATABASE: 'kartoza'
@@ -66,7 +66,7 @@ services:
         environment:
           WORDPRESS_DB_HOST: mariadb
           WORDPRESS_DB_USER: deepress
-          WORDPRESS_DB_PASSWORD: "d33pr3s3d"
+          WORDPRESS_DB_PASSWORD: ""
           WORDPRESS_DB_NAME: deepress
         volumes:
           - wordpre00:/var/www/html
