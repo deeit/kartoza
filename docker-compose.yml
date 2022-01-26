@@ -1,1 +1,110 @@
-../docker-compose.yml
+version: '3.1'
+services:
+
+    admin:
+        image: php:7-apache
+        restart: always 
+        ports:
+            - "10022:22"
+            - "10080:80"
+            - "10443:443"
+            - "10514:514/udp"
+            - "10001:3000"
+            - "10128:3128"
+        networks:
+          kartoza:
+            ipv4_address: 172.18.0.21
+        volumes:
+            -  /home/kartoza/:/root/
+            -  /home/kartoza/remote-logs/:/var/log/
+            - ./home/kartoza/public_html/:/var/www/html/
+            - /tmp:/tmp
+        environment:
+            HTTP_PROXY:  "http://172.17.0.1:3128/"
+            HTTPS_PROXY: "http://172.17.0.1:3128/"
+        links:
+            - 'mariadb'
+    
+
+           
+            
+
+
+
+    mariadb:
+        image: mariadb:latest
+        ports:
+            - "22"
+            - "3306:3306"
+        restart: always
+        volumes:
+            - /home/mysql00:/var/lib/mysql
+            - /home/root:/root/
+            - /tmp:/tmp
+        networks:
+          kartoza:
+            ipv4_address: 172.18.0.22
+        environment:
+            HTTP_PROXY:  "http://172.17.0.1:3128/"
+            HTTPS_PROXY: "http://172.17.0.1:3128/"
+            TZ: "Africa/Johannesburg"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "l3tm31n"
+            MYSQL_USER: 'kartoza'
+            MYSQL_PASSWORD: 'kartoza'
+            MYSQL_DATABASE: 'kartoza'
+
+
+
+    deesceevee.he.unix.za.net:
+        image: wordpress
+        #command: [ "/usr/bin/tail" , "-f" , "/etc/os-release" ] # Just so that killing apache does'nt stop container.
+        restart: "always"
+        ports: 
+          - "8081:80"
+          - "8082:443"
+        environment:
+          WORDPRESS_DB_HOST: mariadb
+          WORDPRESS_DB_USER: deepress
+          WORDPRESS_DB_PASSWORD: "d33pr3s3d"
+          WORDPRESS_DB_NAME: deepress
+        volumes:
+          - wordpre00:/var/www/html
+        networks:
+          kartoza:
+            ipv4_address: "172.18.0.24"
+
+
+    squid01:
+        image: sameersbn/squid    
+        command: [ "/usr/bin/tail" , "-f" , "/etc/os-release" ] 
+        restart: always
+        ports:
+            - "3128:3128"
+            - "3126"
+            - "3130:3130/udp"
+            - "22"
+            - "80"
+        volumes:
+            - "/root:/root/"
+            - "/conf:/root/conf/squid01/"
+            - "/var/cache/squid01:/var/spool/squid"
+            - "/tmp:/tmp"
+            - "/var/tmp/scraps:/var/tmp/scraps"
+        networks:
+          kartoza:
+            ipv4_address: "172.18.0.23"
+
+networks:
+    kartoza:
+        # use the bridge driver, but enable IPv6
+        driver: bridge
+        driver_opts:
+          com.docker.network.driver.mtu: 9000
+        ipam:
+            config:
+                - subnet:   172.18.0.0/24
+
+volumes:
+    mariadb:
+    wordpre00:
