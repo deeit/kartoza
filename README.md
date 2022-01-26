@@ -1,7 +1,7 @@
 ## Kartoza demo/task 
 
 
-* [a link](https://deesceevee.he.unix.za.net/)
+* [hardware](https://deesceevee.he.unix.za.net/)
 
 
 Todo
