@@ -1,7 +1,7 @@
-## Kartoza
+## Kartoza demo/task 
 
 
-Think git is set up, testing
+* [hardware]
 
 
 Todo
