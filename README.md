@@ -1,7 +1,7 @@
 ## Kartoza demo/task 
 
 
-* [hardware](https://deesceevee.he.unix.za.net/)
+* [Task docs home](https://deesceevee.he.unix.za.net/?p=13)
 
 
 Todo
